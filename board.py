@@ -1,5 +1,3 @@
-from queue import Queue
-
 class BoardState:
     # i definitely can't find the banter section in PEP8
     def __init__(self, q):

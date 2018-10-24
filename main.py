@@ -1,4 +1,5 @@
-from board import *
+from board import BoardState
+from queue import Queue
 
 q = Queue()
 
