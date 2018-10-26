@@ -12,38 +12,25 @@ class BoardState:
                                 for y in range(3)
                             }
 
-    def __init__(self):
-        # currently all 0
+    def __init__(self, board, parent):
+        self.parent = parent
+        self.board = board
+        self.stepcost = self.findsteps()
+        self.manhattan = self.manhattan_distance()
+        self.priority = self.manhattan + self.stepcost
         # self.board = [q.items[i: i + 3] for i in range(0, len(q.items), 3)]
-        self.board = [[5, 8, 1], [2, 0, 6], [3, 7, 4]]
-        # should automatically know what the next boards are
-        # be careful tho bc it can freak out at the end when it runs out of options
-        # THIS IS AN IMPORTANT METHOD WE JUST DONT KNOW HOW TO USE IT YET
-        # def create_next_board()
-        # hey yall why not put it in the class and assign it to the _init_ function
-        # has to run all the time - shouldnt be manual
-        # Calculate the next possible board states
-
-    # most 4 options, least 2
 
     def show_board(self):
         print(self.board)
 
-    def find_location(self, value):
-        for row in range(3):
-            try:
-                item_location = perfect_board[row].index(value)
-                # print(row, item_location)
-                #checks for WHERE the number 6 is
-            except:
-                item_location = None
-                #if 6 isnt there, return none
-            if item_location:
-                print(value, row, item_location)
-                break
+    def findsteps(self):
+        if self.parent is None:
+            return 0
+        else:
+            return self.parent.stepcost + 1
 
     def md_calc(self, value, x, y):
-        '''Another helper function for manhattan_distance().
+        '''A helper function for manhattan_distance().
         Compares the current board state to a perfect board state,
         returning the manhattan distance for the specific value that is
         indexed.'''
@@ -68,14 +55,3 @@ class BoardState:
         # return the sum of all the manhattan distances - this is the manhattan
         # distance for the entire board
         return sum(manhattans)
-
-
-
-    def check_duplicate(self):
-        # see if we've seen this board before
-        # is the board already in the Queue
-        # if board in queue:
-        #        move to second best priority in that level
-        #    else:
-        #        keep on keepin on
-        pass
