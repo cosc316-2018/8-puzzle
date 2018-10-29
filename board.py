@@ -20,9 +20,6 @@ class BoardState:
         self.priority = self.manhattan + self.stepcost
         # self.board = [q.items[i: i + 3] for i in range(0, len(q.items), 3)]
 
-    def show_board(self):
-        print(self.board)
-
     def findsteps(self):
         if self.parent is None:
             return 0
