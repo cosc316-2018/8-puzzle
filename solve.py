@@ -2,11 +2,13 @@ from board import BoardState
 from queue import Queue
 import copy
 
+
 def swap(board,x,y,x1,y1):
     '''Swaps two elements.'''
     board1 = copy.deepcopy(board.board)
     board1[x][y], board1[x1][y1] = board1[x1][y1], board1[x][y]
     return BoardState(board1, board)
+
 
 def create_children(brd):
     '''Creates the descendants of this board - all of the next possible boards from the
@@ -32,6 +34,7 @@ def create_children(brd):
                     children.append(swap(brd, x, y, x, y - 1))
                 break
     return children
+
 
 def is_possible(board):
     '''Checks if the board is possible to be solved. Returns a boolean.'''
@@ -60,9 +63,12 @@ def is_possible(board):
     else:
         return False
 
+
 def solve_board(board):
     '''Checks the current board and compares it to the perfect board.
     It then runs a while loop and the "create_children" until the current board matches the goal board.'''
+    # show initial board configuration
+    show_board(board)
     if not is_possible(board):
         print("Bro, not cool. Enter a valid board next time.")
         return
@@ -78,10 +84,10 @@ def solve_board(board):
     visited = Queue()
     while True:
         current = q.push()
-        # print(current.board)
         visited.put(current)
         if current.board == goal_state:
-            print(current.board)
+            print('Board solved successfully!!')
+            show_board(current.board)            
             return
         a = create_children(current)
         for x in a:
@@ -89,3 +95,16 @@ def solve_board(board):
                 q.put(x)
             elif q.instances(x) != 0:
                 q[0].stepcost = 0
+
+
+def show_board(board):
+        print('\n')
+        print('\n  -----------')
+        # uses board to refer to list of list that represents the grid
+        for row in board:
+            print(' |', end=' ')
+            for column in row:
+                print(str(column), end=' | ')
+            print('\n  -----------')
+        print('\n')
+        return ''
